@@ -14,10 +14,13 @@ import linguagensformais.Controler.Automato;
 public class PainelInteracao extends javax.swing.JFrame {
     Automato automato;
     String cText;
+    String cSentenca = "";
+    String cRetorno = "";
     /**
      * Creates new form PainelInteracao
      */
-    public PainelInteracao() {
+    public PainelInteracao(String mMatrizTrns[][], String mMatrizEstFin[][], char vAlfabeto[]) {
+        this.automato = new Automato(mMatrizTrns, mMatrizEstFin, vAlfabeto);
         initComponents();
     }
 
@@ -31,30 +34,30 @@ public class PainelInteracao extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        sTextSaida = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        sTextSentenca = new javax.swing.JTextArea();
+        bAnalise = new javax.swing.JButton();
+        bLimpa = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        sTextSaida.setColumns(20);
+        sTextSaida.setRows(5);
+        jScrollPane1.setViewportView(sTextSaida);
 
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(5);
-        jScrollPane2.setViewportView(jTextArea2);
+        sTextSentenca.setColumns(20);
+        sTextSentenca.setRows(5);
+        jScrollPane2.setViewportView(sTextSentenca);
 
-        jButton1.setText("Analisar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        bAnalise.setText("Analisar");
+        bAnalise.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                bAnaliseActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Limpar");
+        bLimpa.setText("Limpar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -67,9 +70,9 @@ public class PainelInteracao extends javax.swing.JFrame {
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 622, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)
+                        .addComponent(bAnalise)
                         .addGap(38, 38, 38)
-                        .addComponent(jButton2))
+                        .addComponent(bLimpa))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(19, 19, 19)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 625, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -83,8 +86,8 @@ public class PainelInteracao extends javax.swing.JFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(bAnalise)
+                    .addComponent(bLimpa, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
@@ -93,51 +96,47 @@ public class PainelInteracao extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PainelInteracao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PainelInteracao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PainelInteracao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PainelInteracao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
+    public void iniciar(){
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
-                new PainelInteracao().setVisible(true);
+                setVisible(true);
             }
         });
     }
+    private void bAnaliseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAnaliseActionPerformed
+        this.cText = sTextSentenca.getText();
+        int cont = 0;
+        if (cText.length() == 0){
+            cRetorno = "Informe alguma sentença.";
+        }
+        for( char cChar : cText.toCharArray()){
+            if (cChar == ' ' || cChar == '\n' || cChar == '\t'|| cont == cText.length()-1){     
+                if (cont == cText.length()-1){
+                    cSentenca += cChar;
+                    cRetorno += automato.automatoExecute(cSentenca)+"\n";
+                    cSentenca = "";
+                }else{
+                    cRetorno += automato.automatoExecute(cSentenca)+"\n";
+                    cSentenca = "";
+                }
+                
+            }else{
+                cSentenca += cChar;
+            }
+            cont ++;
+        }
+        sTextSaida.setText(cRetorno);
+    }//GEN-LAST:event_bAnaliseActionPerformed
+
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton bAnalise;
+    private javax.swing.JButton bLimpa;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextArea jTextArea2;
+    private javax.swing.JTextArea sTextSaida;
+    private javax.swing.JTextArea sTextSentenca;
     // End of variables declaration//GEN-END:variables
 }
